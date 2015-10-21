@@ -1,0 +1,18 @@
+{
+    "contents" : "rm(list=ls())\nls()\nload(\"C:/Users/성방헌/Desktop/R/Data/zmPDSwR/Custdata/exampleData.rData\")\nls()\nstr(custdata)\ncustdata.2 <- custdata\n(v.to.add <- c(\"age.normalized\", \"Median.Incom\", \"incom.norm\", \"gp\", \"income.lt.30K\",\"age.range\"))\n(v.to.retain <- setdiff(names(custdata), v.to.add))\ncustdata <- custdata[v.to.retain]\nstr(custdata)\n\n### Treating missing values\n\noption(width=132)\nsummary(custdata[is.na(custdata$housing.type), c(\"recent.move\", \"num.vehicles\")])\nstr(custdata)\nsummary(custdata[c(\"housing.type\", \"recent.move\",\"num.vehicles\",\"is.employed\")])\ncustdata$is.employed.fix <- ifelse(is.na(custdata$is.employed),\"missing\", ifelse(custdata$is.employed == TRUE, \"employed\", \"not employed\"))\nsummary(custdata$is.employed.fix)\nsummary(factor(custdata$is.employed.fix))\nsummary(as.factor(custdata$is.employedfix))\nsummary(factor(custdata$is.employed.fix,levels=c(\"employed\", \"not employed\"),\"missing\"))\nsummary(custdata[custdata$is.employed.fix==\"missing\",])\ncustdata$is.employed.fix <- ifelse(is.na(custdata$is.employed), \"not in active workforce\", ifelse(custdata$is.employed==TRUE, \"employed\", \"not employed\"))\nsummary(factor(custdata$is.employed.fix))\nsummary(custdata$Income)\nmean.income <- mean(custdata$Income, na.rm = TRUE)\nIncome.fix <- ifelse(is.na(custdata$Income), mean.income, custdata$Income)\nsummary(Income.fix)\nlibrary(ggplot2)\nggplot(custdata, aes(x=Income)) + geom_histogram(binwidth=30000, aes(y=..density..),alpha=0.5)\n\n",
+    "created" : 1444106088356.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3076146406",
+    "id" : "579E1A2",
+    "lastKnownWriteTime" : 1444107110,
+    "path" : "C:/Users/성방헌/Desktop/rs.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
